@@ -153,30 +153,20 @@ public class ExoJDBC {
         Statement st = null;
         ResultSet rs = null;
         Scanner scanner = new Scanner(System.in);
-
         System.out.print("Entrez votre requête SQL: ");
         String query = scanner.nextLine(); 
-
         try {
             st = Connexion.getCn().createStatement();
-
-          
             if (query.trim().toLowerCase().startsWith("SELECT")) {
                 rs = st.executeQuery(query);
-                ResultSetMetaData metaData = rs.getMetaData();
-
-                
+                ResultSetMetaData metaData = rs.getMetaData(); 
                 int columnCount = metaData.getColumnCount();
-                System.out.println("Nombre de colonnes: " + columnCount);
-
-           
+                System.out.println("Nombre de colonnes: " + columnCount);  
                 for (int i = 1; i <= columnCount; i++) {
                     String columnName = metaData.getColumnName(i);
                     String columnType = metaData.getColumnTypeName(i);
                     System.out.println("Colonne " + i + ": " + columnName + " - Type: " + columnType);
                 }
-
-
                 System.out.println("\nContenu du résultat:");
                 while (rs.next()) {
                     StringBuilder row = new StringBuilder();
@@ -184,9 +174,7 @@ public class ExoJDBC {
                         row.append(rs.getString(i)).append(" | ");
                     }
                     System.out.println(row.toString());
-                }
-            } else {
-             
+                } } else {  
                 int rowsAffected = st.executeUpdate(query);
                 System.out.println("Nombre de lignes modifiées: " + rowsAffected);
             }
